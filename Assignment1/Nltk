@@ -1,0 +1,36 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+import string
+
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+# Input text
+text = """
+I am Kalyani Yadav Daine, pursuing BTech in Information Technology from Sanjivani College of Engineering, Kopargaon.
+I am 21 years old.
+"""
+
+print("========== ORIGINAL TEXT ==========")
+print(text)
+
+# Tokenization
+tokens = word_tokenize(text)
+print("\nTokens:\n", tokens)
+
+# Remove punctuation
+tokens_no_punct = [word for word in tokens if word not in string.punctuation]
+print("\nAfter Punctuation Removal:\n", tokens_no_punct)
+
+# Remove stopwords
+stop_words = set(stopwords.words("english"))
+tokens_no_stop = [word for word in tokens_no_punct if word.lower() not in stop_words]
+print("\nAfter Stopword Removal:\n", tokens_no_stop)
+
+# Stemming
+stemmer = PorterStemmer()
+stemmed_words = [stemmer.stem(word) for word in tokens_no_stop]
+print("\nAfter Stemming:\n", stemmed_words)
